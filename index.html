@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的个人主页 | Product Manager</title>
+    <style>
+        /* --- 核心设定：高端黑金/广告风 --- */
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #f5f5f5;
+            --accent-color: #d4af37; /* 香槟金 */
+        }
+        body { margin: 0; background: var(--bg-color); color: var(--text-color); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; overflow-x: hidden; }
+        
+        /* 优化后的自定义滚动条 - 香槟金质感 */
+        ::-webkit-scrollbar { height: 6px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
+        ::-webkit-scrollbar-thumb { background: var(--accent-color); border-radius: 10px; }
+
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%); }
+        .hero h1 { font-size: 4rem; margin: 0; letter-spacing: -2px; background: linear-gradient(to right, #fff, #888); -webkit-background-clip: text; color: transparent; }
+        .hero p { font-size: 1.5rem; color: #888; margin-top: 10px; font-weight: 300; }
+        
+        .intro-section { padding: 80px 20px; text-align: center; max-width: 800px; margin: 0 auto; }
+        
+        /* 视频容器，确保比例正确且响应式 */
+        .video-container { position: relative; padding-bottom: 56.25%; /* 16:9 比例 */ height: 0; overflow: hidden; background: #222; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid #333; }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        .portfolio-section { padding: 50px 0; }
+        .section-title { padding-left: 5%; font-size: 2rem; margin-bottom: 20px; border-left: 5px solid var(--accent-color); padding-left: 15px; }
+        
+        .gallery-container { display: flex; overflow-x: auto; gap: 30px; padding: 20px 5%; scroll-snap-type: x mandatory; cursor: grab; padding-bottom: 30px; }
+        /* 鼠标按下时的抓取状态 */
+        .gallery-container:active { cursor: grabbing; } 
+
+        .card { flex: 0 0 350px; height: 500px; background: #161616; border-radius: 15px; overflow: hidden; scroll-snap-align: center; transition: transform 0.3s; border: 1px solid #333; display: flex; flex-direction: column; user-select: none; }
+        .card:hover { transform: scale(1.02); border-color: var(--accent-color); }
+        /* 防止图片被拖拽干扰体验 */
+        .card-img { height: 60%; background-color: #333; object-fit: cover; width: 100%; pointer-events: none; }
+        .card-info { padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .card h3 { margin: 0; font-size: 1.5rem; }
+        .card p { color: #999; font-size: 0.9rem; line-height: 1.5; }
+        .tag { display: inline-block; background: #333; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; color: #ccc; margin-top: 10px; }
+
+        .resume-section { max-width: 800px; margin: 80px auto; padding: 20px; }
+        .job-item { border-left: 2px solid #333; padding-left: 30px; position: relative; margin-bottom: 50px; }
+        .job-item::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; background: var(--accent-color); border-radius: 50%; }
+        .job-title { font-size: 1.8rem; color: #fff; margin: 0 0 5px 0; }
+        .job-company { color: var(--accent-color); font-size: 1.1rem; margin-bottom: 15px; display: block; }
+
+        @media (max-width: 600px) { .hero h1 { font-size: 2.5rem; } .card { flex: 0 0 85%; height: 450px; } }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <h1>NAME / 你的名字</h1>
+        <p>Product Manager | Beauty Industry & AI Enthusiast</p>
+        <p style="font-size: 1rem; margin-top: 30px; color: #555;">↓ 向下滚动探索</p>
+    </section>
+
+    <section class="intro-section">
+        <h2 style="margin-bottom: 30px;">INTRO / 自我介绍</h2>
+        <div class="video-container">
+            <iframe src="//player.bilibili.com/player.html?bvid=你的视频ID" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+        </div>
+    </section>
+
+    <section class="portfolio-section">
+        <h2 class="section-title">PROJECTS / 代表作品</h2>
+        <p style="padding-left: 5%; color: #666; margin-bottom: 20px;">(电脑端按住鼠标拖拽，手机端左右滑动)</p>
+        
+        <div class="gallery-container" id="slider">
+            
+            <div class="card">
+                <img src="img1.jpg" class="card-img" alt="SPA项目">
+                <div class="card-info">
+                    <div>
+                        <h3>SPA系列</h3>
+                        <p>针对年轻消费者肌肤深度SPA护理。</p>
+                    </div>
+                    <div><span class="tag">SPA Line</span> <span class="tag">NPD</span></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="img2.jpg" class="card-img" alt="洗护项目">
+                <div class="card-info">
+                    <div>
+                        <h3>洗护系列</h3>
+                        <p>针对年轻女性消费者的洗护体验，主打香氛疗愈。</p>
+                    </div>
+                    <div><span class="tag">Body Care</span> <span class="tag">NPD</span></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="img3.jpg" class="card-img" alt="防晒项目">
+                <div class="card-info">
+                    <div>
+                        <h3>防晒系列</h3>
+                        <p>针对专业运动员的防晒系列。</p>
+                    </div>
+                    <div><span class="tag">Sun Care</span> <span class="tag">NPD</span></div>
+                </div>
+            </div>
+
+             <div class="card">
+                <img src="img4.jpg" class="card-img" alt="清洁项目">
+                <div class="card-info">
+                    <div>
+                        <h3>清洁系列</h3>
+                        <p>针对年轻男性消费者的深度清洁。</p>
+                    </div>
+                    <div><span class="tag">Cleansing</span> <span class="tag">NPD</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="resume-section">
+        <h2 style="border-bottom: 1px solid #333; padding-bottom: 20px; margin-bottom: 40px;">EXPERIENCE / 经历</h2>
+        
+        <div class="job-item">
+            <h3 class="job-title">Senior Product Manager</h3>
+            <span class="job-company">Current Company / 2023 - Present</span>
+            <p style="color:#aaa;">负责核心产品线的生命周期管理，主导了年度重磅新品的开发与上市。</p>
+        </div>
+
+        <div class="job-item">
+            <h3 class="job-title">Junior Product Manager</h3>
+            <span class="job-company">Unilever / 2020 - 2023</span>
+            <p style="color:#aaa;">负责多条产品线的品牌重塑与市场推广策略。</p>
+        </div>
+    </section>
+
+    <script>
+        const slider = document.getElementById('slider');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.style.cursor = 'grabbing';
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+        slider.addEventListener('mouseleave', () => { 
+            isDown = false; 
+            slider.style.cursor = 'grab';
+        });
+        slider.addEventListener('mouseup', () => { 
+            isDown = false; 
+            slider.style.cursor = 'grab';
+        });
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2; 
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+</body>
+</html>
